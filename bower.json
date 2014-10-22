@@ -1,0 +1,16 @@
+{
+  "name": "asteroid_hackathon",
+  "version": "0.0.0",
+  "homepage": "https://github.com/wing3s/asteroid_hackathon",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fabric": "~1.4.12"
+  }
+}
