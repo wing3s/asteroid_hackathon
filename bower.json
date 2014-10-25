@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "fabric": "~1.4.12",
-    "semantic": "~0.19.3"
+    "semantic": "~0.19.3",
+    "jquery": "~2.1.1"
   }
 }
