@@ -18,7 +18,6 @@ module.exports = function(app) {
                 return;
             }
             res.send(results);
-            console.log(query.sql);
         });
     });
 };
