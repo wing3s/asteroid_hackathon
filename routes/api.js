@@ -7,7 +7,9 @@ module.exports = function(app) {
             '(perihelion_distance + aphelion_distance)/2 radius_a',
             'SQRT(perihelion_distance * aphelion_distance) radius_b',
             'name',
-            'absolute_magnitude'
+            'absolute_magnitude as magnitude',
+            'period',
+            'orbit_type',
         ];
         var magnitude   = req.query.magnitude;
         var orbit_type  = req.query.orbit_type;
@@ -20,7 +22,7 @@ module.exports = function(app) {
                   " FROM mp_properties " +
                   " WHERE id > 0 " +
                     magnitude_query + orbit_type_query + needname_query +
-                  " LIMIT 1200";
+                  " LIMIT 500";
         var query = client.query(sql, function(err, results) {
             if (err) {
                 console.error(err);
