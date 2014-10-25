@@ -30,4 +30,5 @@ bower_components
 # Users Environment Variables
 .lock-wscript
 
+config/config.js
 public/stylesheets/style.css
