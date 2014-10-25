@@ -128,7 +128,7 @@ function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, per
         duration = constRotationSpeed * period,
 
         // randomize starting angle to avoid planets starting on one line
-        startAngle = fabric.util.getRandomInt(-180, 0),
+        startAngle = fabric.util.getRandomInt(-359, 0),
         endAngle = startAngle + 349;
 
     (function animate() {
