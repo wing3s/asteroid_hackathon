@@ -10,8 +10,12 @@ var constRotationSpeed = 20000,
     maxMagnitude = 33;
 
 
-addPlanets(1, 50, 2, 4, 4, "Sun", 33, "white", "white", 1, 20);
-//addPlanets(2, 30, 4, 1, 1, "Mercury", 20, "blue", "white", 1, 20);
+addPlanets(1, 60, 2, 4, 4, "Sun", 33, "white", "white", 1, 20);
+addPlanets(2, 10, 2, 1, 1, "Mars", 20, "blue", "white", 1, 20);
+
+
+//addAsteroid( 1, 10, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", "blue", "white", 1, 0);
+
 
 function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, planetType, color1, color2, orbitOn, yawAngle) {
     
@@ -22,18 +26,19 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 
     var planet = new fabric.Circle({
       radius: planetSize,
-      //left: canvas.getWidth()/2 - xAxisLength,
-      //top: canvas.getHeight()/2 - yAxisLength,
+      //left: canvas.getWidth()/2,
+      //top: canvas.getHeight()/2,
       fill: "white",
       //stroke: 'rgba(0,192,255,0.5)',
       index: index,
     });
+    console.log(planet);
     canvas.add(planet);
 
     if(orbitOn)
-        createOrbit(index, xAxisLength, yAxisLength,yawAngle, color1, color2);
+        createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2);
 
-    animatePlanet(planet, index, xAxisLength, yAxisLength);
+    animatePlanet(planet, index, xAxisLength, yAxisLength, planetSize);
 
     // // load sprite with planets
     // fabric.Image.fromURL(url, function(planetsImg) {
@@ -70,13 +75,13 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, color1, color2, orbitOn, yawAngle) {
 
     if(planetName == "Mercury")
-        url = '../images/Mercury.png';
+        url = '../images/planet/Mercury.png';
     else if(planetName == "Venus")
         url = '../images/Venus.png';
     else if(planetName == "Earth")
         url = '../images/Earth.png';
     else if(planetName == "Mars")
-        url = '../images/Mars.png';
+        url = '../images/planet/Mars.png';
     else if(planetName == "Jupiter")
         url = '../images/Jupiter.png';
     else if(planetName == "Neptune")
