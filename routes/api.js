@@ -53,4 +53,22 @@ module.exports = function(app) {
             }
         });
     });
+
+    app.get('/api/neo', function(req, res) {
+        var output_params = [
+            'name',
+            'period',
+        ];
+        var sql = " SELECT " + output_params.join(', ') +
+                  " FROM mp_properties WHERE neo=1 AND name IS NOT NULL" +
+                  " ORDER BY perihelion_distance ASC";
+        client.query(sql, function(err, results) {
+            if (err) {
+                console.log(err);
+                res.send(err);
+                return;
+            }
+            res.send(results);
+        });
+    });
 };
