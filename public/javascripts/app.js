@@ -6,7 +6,7 @@ var planetSize = 26,
     xAxisLength = 200,
     yAxisLength = 120,
     index = 5,
-    planetName = "Saturn",
+//    planetName = "Saturn",
     canvasWidth = canvas.getWidth(),
     canvasHeight = canvas.getHeight(),
     maxARadius = 5,
@@ -22,20 +22,23 @@ var hoverCircle = new fabric.Ellipse({
                             left: 100, top:0});
 
 //canvas.add(hoverCircle);
+
 //addAsteroid( 1, planetSize, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", 30);
 //addAsteroid( 2, 30, 4.37, 2.67122, 2.6396, "0401391", 16.50, "M", 45);
 
 //addAsteroidEarthView(1, .3, .1, "M", 16.3);
-addAsteroidEarthView(2, .5, .3, "P", 21.3, 1);
-addAsteroidEarthView(3, .6, .4, "M", 12.3, 1.2);
-addAsteroidEarthView(4, .7, .5, "P", 15.2, 1.5);
-addAsteroidEarthView(5, .9, .7, "S", 7.2, 2);
-addAsteroidEarthView(6, 1.0, .8, "B", 16.2, 2.4);
-addAsteroidEarthView(7, 1.1, .9, "M", 11.2, 3.1);
-addAsteroidEarthView(8, 1.2, 1.0, "B", 16.2, 3.7);
-addAsteroidEarthView(9, 1.4, 1.2, "M", 11.2, 4.3);
+addAsteroidEarthView(2, .5, .3, "P", 21.3, 1, "ChuChu");
+addAsteroidEarthView(3, .6, .4, "M", 12.3, 1.2, "Dede");
+addAsteroidEarthView(4, .7, .5, "P", 15.2, 1.5, "BanBan");
+addAsteroidEarthView(5, .9, .7, "S", 7.2, 2, "WH");
+addAsteroidEarthView(6, 1.0, .8, "B", 16.2, 2.4, "JJ");
+addAsteroidEarthView(7, 1.1, .9, "M", 11.2, 3.1, "Fon");
+addAsteroidEarthView(8, 1.2, 1.0, "B", 16.2, 3.7, "Hack");
+addAsteroidEarthView(9, 1.4, 1.2, "M", 11.2, 4.3, "Test");
 
-function addAsteroidEarthView(index, xAxisLength, yAxisLength, planetType, magnitude, period) {
+
+
+function addAsteroidEarthView(index, xAxisLength, yAxisLength, planetType, magnitude, period, planetName) {
 
 	opacity = magnitude /maxMagnitude;
 
@@ -82,13 +85,19 @@ function addAsteroidEarthView(index, xAxisLength, yAxisLength, planetType, magni
 		createOrbitEarthView(index, xAxisLength, yAxisLength, 0);	    
 	    
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity);
+	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName);
 	      //planets.push(planet);
-	      animatePlanetEarthView(planet, index, xAxisLength, yAxisLength, period);
+
+		var planetLabel = new fabric.Text('', {
+		    fill: '#fff',
+		    fontSize: 16,
+		    fontFamily: 'Open Sans',
+		    textBackgroundColor: '#002244'});
+		 canvas.add(planetLabel);	     
+	     animatePlanetEarthView(planet, index, xAxisLength, yAxisLength, period, planetLabel);
 	    //}
-
-	 });
-
+		 });
+	
 }
 
 function createOrbitEarthView(index, xAxisLength, yAxisLength, yawAngle) {
@@ -107,7 +116,7 @@ function createOrbitEarthView(index, xAxisLength, yAxisLength, yawAngle) {
     //orbits.push(orbit);
 }
 
-function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, period) {
+function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, period, planetLabel) {
 
     var xLength = xAxisLength,
     	yLength = yAxisLength,
@@ -139,6 +148,9 @@ function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, per
           var y = cy + yLength * Math.sin(angle) - planetSize/2;
           
           oImg.set({ left: x, top: y }).setCoords();
+
+
+		planetLabel.set({ left: oImg.left + 30, top: oImg.top + 10, text: oImg.name}).setCoords();
 
           // only render once
           //if (planetIndex === totalPlanets - 1) {
@@ -198,7 +210,7 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 	    //}
 
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity);
+	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName);
 	      //planets.push(planet);
 	      animatePlanet(planet, index, xAxisLength, yAxisLength);
 	    //}
@@ -222,7 +234,7 @@ function createOrbit(index, xAxisLength, yAxisLength, yawAngle) {
     //orbits.push(orbit);
 }
 
-function createPlanet(index, planetsImg, tempCanvas, opacity) {
+function createPlanet(index, planetsImg, tempCanvas, opacity, planetName) {
 
 	// offset planets sprite to fit each of the planets onto it
     planetsImg.left = -planetSize ;
