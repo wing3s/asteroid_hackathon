@@ -11,6 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "fabric": "~1.4.12"
+    "fabric": "~1.4.12",
+    "semantic": "~0.19.3"
   }
 }
