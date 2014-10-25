@@ -5,13 +5,13 @@ block content
     div(class='menu_container')
       div(class='title item' href='#') #{title.toUpperCase()}
       div(class='right menu')
-        a(class='item') 
+        a(class='item' id='solarsystem_button') 
           i(class='sun icon')
           | Solar System
-        a(class='item')
+        a(class='item' id='earth_button')
           i(class='globe icon')
           | Earth
-        a(class='item')
+        a(class='item' id='launch_button')
           i(class='red rocket icon')
           | Launch !
   canvas(id='demo' width="1200" height="600")
