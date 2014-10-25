@@ -13,16 +13,16 @@ var constRotationSpeed = 20000,
 
 
 function addSolarPlanets() {
-    addPlanets(1, 85, 2, 4, 4, "Sun", 33, "white", "white", 1, 20);
-    addPlanets(2, 51, 2, 5.204, 4.950, "Jupiter", 20, "blue", "white", 1, 20);
+    addPlanets(1, 85, 2, 0, 0, "Sun", 33, "white", "white", 1, 20);
+    addPlanets(2, 51, 11.8618, 5.204, 4.950, "Jupiter", 20, "blue", "white", 1, 20);
     addPlanets(2, 21, 2.135, 1.523679, 1.3814, "Mars", 20, "blue", "white", 1, 20);
     addPlanets(2, 16, 0.240, 0.387, 0.307, "Mercury", 20, "blue", "white", 1, 20);
-    addPlanets(2, 43, 2, 1, 1, "Neptune", 20, "blue", "white", 1, 20);
-    addPlanets(2, 21, 2, 1, 1, "Pluto", 20, "blue", "white", 1, 20);
-    addPlanets(2, 69, 2, 1, 1, "Saturn", 20, "blue", "white", 1, 20);
-    addPlanets(2, 47, 2, 1, 1, "Uranus", 20, "blue", "white", 1, 20);
-    addPlanets(2, 24, 2, 1, 1, "Venus", 20, "blue", "white", 1, 20);
-    addPlanets(2, 26, 2, 1, 1, "Earth", 20, "blue", "white", 1, 20);
+    addPlanets(2, 43, 164.8, 30.07, 29.809, "Neptune", 20, "blue", "white", 1, 20);
+    addPlanets(2, 21, 247.68, 39.264, 29.657, "Pluto", 20, "blue", "white", 1, 20);
+    addPlanets(2, 69, 29.457, 9.582, 9.048, "Saturn", 20, "blue", "white", 1, 20);
+    addPlanets(2, 47, 84.016, 19.189, 18.283, "Uranus", 20, "blue", "white", 1, 20);
+    addPlanets(2, 24, 0.615, 0.723, 0.718, "Venus", 20, "blue", "white", 1, 20);
+    addPlanets(2, 26, 1, 1, 0.983, "Earth", 20, "blue", "white", 1, 20);
 }
 
 //addAsteroid( 1, 10, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", "blue", "white", 1, 0);
