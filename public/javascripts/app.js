@@ -28,6 +28,9 @@ addAsteroid( 2, 1, 4.37, 2.67122, 2.6396, "0401391", 16.50, "M", "red", "yellow"
 addAsteroid( 3, 1, 4.09, 2.55578, 2.539249, "K13C19F", 18.10, "M", "blue", "yellow", 1, 45);
 addAsteroid( 4, 1, 4.32, 2.65167, 2.62004, "K13C14Z", 16.50, "M", "blue", "red", 1, 45);
 
+addPlanets(1, 85, 2, 0, 0, "Sun", 33, "white", "white", 1, 20);
+addPlanets(2, 30, 4, 1, 1, "Mercury", 20, "blue", "white", 1, 20);
+
 //addAsteroidEarthView(1, .3, .1, "M", 16.3);
 // addAsteroidEarthView(2, .5, .3, "P", 21.3, 1, "ChuChu");
 // addAsteroidEarthView(3, .6, .4, "M", 12.3, 1.2, "Dede");
@@ -37,7 +40,6 @@ addAsteroid( 4, 1, 4.32, 2.65167, 2.62004, "K13C14Z", 16.50, "M", "blue", "red",
 // addAsteroidEarthView(7, 1.1, .9, "M", 11.2, 3.1, "Fon");
 // addAsteroidEarthView(8, 1.2, 1.0, "B", 16.2, 3.7, "Hack");
 // addAsteroidEarthView(9, 1.4, 1.2, "M", 11.2, 4.3, "Test");
-
 
 
 function addAsteroidEarthView(index, xAxisLength, yAxisLength, planetType, magnitude, period, planetName) {
@@ -238,12 +240,32 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 }
 
 function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, color1, color2, orbitOn, yawAngle) {
-	
+
+	if(planetName == "Mercury")
+		url = '../images/Mercury.png';
+	else if(planetName == "Venus")
+ 		url = '../images/Venus.png';
+ 	else if(planetName == "Earth")
+		url = '../images/Earth.png';
+	else if(planetName == "Mars")
+		url = '../images/Mars.png';
+	else if(planetName == "Jupiter")
+		url = '../images/Jupiter.png';
+	else if(planetName == "Neptune")
+		url = '../images/Neptune.png';
+	else if(planetName == "Uranus")
+		url = '../images/Uranus.png';
+	else if(planetName == "Pluto")
+		url = '../images/Pluto.png';
+	else if(planetName == "Sun")
+		url = '../images/Sun.png';
+	else
+		console.log("not valid planet type!");
+
 	rotationSpeed = constRotationSpeed/period;
 	xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
 	yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
 	opacity = magnitude/maxMagnitude;
-
 
 	// load sprite with planets
 	fabric.Image.fromURL(url, function(planetsImg) {
