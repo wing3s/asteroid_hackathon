@@ -6,7 +6,9 @@ var planetSize = 26,
     xAxisLength = 200,
     yAxisLength = 120,
     index = 5,
-    planetName = "Saturn";
+    planetName = "Saturn",
+    canvasWidth = canvas.getWidth(),
+    canvasHeight = canvas.getHeight();
 
 var hoverCircle = new fabric.Ellipse({
 							strokeWidth: 2, 
@@ -17,12 +19,20 @@ var hoverCircle = new fabric.Ellipse({
                             left: 100, top:0});
 
 //canvas.add(hoverCircle);
-addAsteroid( index, planetSize, rotationSpeed, xAxisLength,yAxisLength, planetName);
-addAsteroid( 3, 30, rotationSpeed, 400,100, planetName);
+addAsteroid( 1, planetSize, rotationSpeed/5.33, 3.04971 * canvasWidth/4/2, 3.03044 * canvasHeight/4/2, "K13C45M", 16.3/20, "M");
+addAsteroid( 2, 30, rotationSpeed/4.37, 2.67122 * canvasWidth/4/2, 2.6396 * canvasHeight/4/2, "0401391", 16.50/20, "M");
 
-function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength, planetName) {
+function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength, planetName, magnitude, planetType) {
+	
+	if(planetType == "M")
+		url = '../images/astroid-04.png';
+	else if(planetType == "P")
+		url = '../images/astroid-05.png';
+
+
+
 	// load sprite with planets
-	fabric.Image.fromURL('../images/banban2.jpg', function(planetsImg) {
+	fabric.Image.fromURL(url, function(planetsImg) {
 
 	    // temp canvas to generate planet images
 	    var tempCanvas = new fabric.StaticCanvas();
@@ -45,7 +55,7 @@ function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength,
 	    //}
 
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      var planet = createPlanet(index, planetsImg, tempCanvas);
+	      var planet = createPlanet(index, planetsImg, tempCanvas, magnitude);
 	      //planets.push(planet);
 	      animatePlanet(planet, index, xAxisLength, yAxisLength);
 	    //}
@@ -68,7 +78,7 @@ function createOrbit(index, xAxisLength, yAxisLength) {
     //orbits.push(orbit);
 }
 
-function createPlanet(index, planetsImg, tempCanvas) {
+function createPlanet(index, planetsImg, tempCanvas, magnitude) {
 
 	// offset planets sprite to fit each of the planets onto it
     planetsImg.left = -planetSize ;
@@ -84,6 +94,7 @@ function createPlanet(index, planetsImg, tempCanvas) {
 
     	width: planetSize,
     	height: planetSize,
+    	opacity: magnitude,
 
     	name: planetName,
     	index: index,
@@ -144,3 +155,4 @@ function animatePlanet(oImg, planetIndex, xAxisLength, yAxisLength) {
       });
     })();
 }
+
