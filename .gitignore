@@ -30,5 +30,6 @@ bower_components
 # Users Environment Variables
 .lock-wscript
 
+*.DS_Store
 config/config.js
 public/stylesheets/style.css
