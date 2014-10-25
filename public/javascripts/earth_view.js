@@ -8,7 +8,7 @@ var planetSize = 26,
     maxBRadius = 5,
     maxMagnitude = 33;
 
-function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magnitude, period, planetName) {
+function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magnitude, period, planetName, color1, color2) {
 
 	opacity = magnitude /maxMagnitude;
   var orbit_img_id = orbit_type * (Math.floor(Math.random() * 4) + 1);
@@ -36,7 +36,7 @@ function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magni
 		xAxisLength = xAxisLength * canvasWidth;
 		yAxisLength = yAxisLength * canvasHeight;
 
-    createOrbitEarthView(index, xAxisLength, yAxisLength, 0);
+    createOrbitEarthView(index, xAxisLength, yAxisLength, 0, color1, color2);
    //for (var i = 0; i < totalPlanets; i++) {
     var planet = createEarthPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize, xAxisLength);
      //planets.push(planet);
@@ -99,7 +99,7 @@ function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, per
     })();
 }
 
-function createOrbitEarthView(index, xAxisLength, yAxisLength, yawAngle) {
+function createOrbitEarthView(index, xAxisLength, yAxisLength, yawAngle, color1, color2) {
 
 
     var orbit = new fabric.Ellipse({
@@ -108,11 +108,37 @@ function createOrbitEarthView(index, xAxisLength, yAxisLength, yawAngle) {
       left: -xAxisLength,
       top: canvasHeight * 4 - yAxisLength,
       fill: "",
-      stroke: 'rgba(0,192,255,0.5)',
+      //stroke: 'rgba(0,192,255,0.5)',
       strokeWidth: 2,
       index: index,
       //angle: yawAngle,
     });
+
+	var gradientAngle = fabric.util.getRandomInt(0, 1);
+
+    if(gradientAngle === 0) {
+        orbit.setGradient('stroke', {
+        x1: 0,
+        y1: orbit.height / 2,
+        x2: orbit.width,
+        y2: orbit.height / 2,
+        colorStops: {
+            0: color1,
+            1: color2
+            }
+        });
+    } else {
+        orbit.setGradient('stroke', {
+        x1: orbit.width / 2,
+        y1: 0,
+        x2: orbit.width / 2,
+        y2: orbit.height,
+        colorStops: {
+            0: color1,
+            1: color2
+            }
+        });
+    }
     canvas.add(orbit);
     //orbits.push(orbit);
 }
