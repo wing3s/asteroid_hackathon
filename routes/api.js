@@ -22,7 +22,7 @@ module.exports = function(app) {
                   " FROM mp_properties " +
                   " WHERE id > 0 " +
                     magnitude_query + orbit_type_query + needname_query +
-                  " LIMIT 500";
+                  " LIMIT 100";
         var query = client.query(sql, function(err, results) {
             if (err) {
                 console.error(err);

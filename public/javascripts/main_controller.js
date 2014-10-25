@@ -23,7 +23,7 @@ $(document).ready(function() {
                         (function orbit_asteroids_loop(j) {
                             orbit_asteroids_timeout = setTimeout(function() {
                                 var asteroid = results[j];
-                                addAsteroid(asteroid.id, 0, asteroid.period, asteroid.radius_a, asteroid.radius_b, asteroid.name, asteroid.magnitude, asteroid.orbit_type, 'white', 'blue', 1, 0);
+                                addAsteroid(asteroid.id, asteroid.orbit_type, asteroid.period, asteroid.radius_a, asteroid.radius_b, asteroid.name, asteroid.magnitude, asteroid.orbit_type, 'white', 'blue', 1000, 0);
 
                                 console.log(results[j]);
                                 if (++j<results.length) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
             dataType: "json",
             success: function(results) {
                 (function neo_loop(i) {
-                    noe_timeout = setTimeout(function() {
+                    neo_timeout = setTimeout(function() {
                         neo_obj = results[i];
                         console.log(neo_obj);
                         var turb = Math.random()*0.6;

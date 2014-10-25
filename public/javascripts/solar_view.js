@@ -1,6 +1,4 @@
-var canvas = new fabric.Canvas('demo');
-
-var constRotationSpeed = 20000,
+var constRotationSpeed = 2000,
     xAxisLength = 200,
     yAxisLength = 120,
     canvasWidth = canvas.getWidth(),
@@ -14,39 +12,54 @@ var constRotationSpeed = 20000,
 
 function addSolarPlanets() {
     addPlanets(1, 85, 2, 0, 0, "Sun", 33, "white", "white", 1, 20);
-    addPlanets(2, 51, 11.8618, 5.204, 4.950, "Jupiter", 20, "blue", "white", 1, 20);
-    addPlanets(2, 21, 2.135, 1.523679, 1.3814, "Mars", 20, "blue", "white", 1, 20);
-    addPlanets(2, 16, 0.240, 0.387, 0.307, "Mercury", 20, "blue", "white", 1, 20);
-    addPlanets(2, 43, 164.8, 30.07, 29.809, "Neptune", 20, "blue", "white", 1, 20);
-    addPlanets(2, 21, 247.68, 39.264, 29.657, "Pluto", 20, "blue", "white", 1, 20);
-    addPlanets(2, 69, 29.457, 9.582, 9.048, "Saturn", 20, "blue", "white", 1, 20);
-    addPlanets(2, 47, 84.016, 19.189, 18.283, "Uranus", 20, "blue", "white", 1, 20);
-    addPlanets(2, 24, 0.615, 0.723, 0.718, "Venus", 20, "blue", "white", 1, 20);
-    addPlanets(2, 26, 1, 1, 0.983, "Earth", 20, "blue", "white", 1, 20);
+    addPlanets(2, 51, 11.8618, 5.204, 4.950, "Jupiter", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 21, 2.135, 1.523679, 1.3814, "Mars", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 16, 0.240, 0.387, 0.307, "Mercury", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 43, 164.8, 30.07, 29.809, "Neptune", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 21, 247.68, 39.264, 29.657, "Pluto", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 69, 29.457, 9.582, 9.048, "Saturn", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 47, 84.016, 19.189, 18.283, "Uranus", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 24, 0.615, 0.723, 0.718, "Venus", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
+    addPlanets(2, 26, 1, 1, 0.983, "Earth", 20, "rgba(169  ,82 , 165, 0.8)", 'rgba(102, 45, 145, 0.4)', 1, 20);
 }
 
 //addAsteroid( 1, 10, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", "blue", "white", 1, 0);
 
 
-function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, planetType, color1, color2, orbitOn, yawAngle) {
+function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, orbit_type, color1, color2, orbitOn, yawAngle) {
     
     rotationSpeed = constRotationSpeed/period;
     xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
     yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
     var opacity = magnitude/maxMagnitude;
 
-    var planet = new fabric.Circle({
-      radius: planetSize,
-      //left: canvas.getWidth()/2,
-      //top: canvas.getHeight()/2,
-      fill: "white",
-      //stroke: 'rgba(0,192,255,0.5)',
-      index: index,
-    });
-    canvas.add(planet);
+    var orbit_colors = {
+        0: ['white', 'blue'],
+        1:  ['rgba(237  ,30 , 121, 0.4)', 'rgba(147, 39, 143, 0.05)'],
+        2:  ['rgba(237  ,28 , 36, 0.4)', 'rgba(247, 147, 30, 0.05)'],
+        3:  ['rgba(251  ,176 , 59, 0.4)', 'rgba(241, 90, 36, 0.05)'],
+        4:  ['rgba(251  ,176 , 59, 0.4)', 'rgba(34, 181, 115, 0.05)'],
+        5:  ['rgba(34  ,181 , 115, 0.4)', 'rgba(0, 113, 188, 0.05)'],
+        6:  ['rgba(0  ,169 , 157, 0.4)', 'rgba(0, 113, 188, 0.05)'],
+        7:  ['rgba(41  ,171 , 226, 0.4)', 'rgba(102, 45, 145, 0.05)'],
+        8:  ['rgba(169  ,82 , 165, 0.4)', 'rgba(102, 45, 145, 0.05)'],
+        9:  ['rgba(169  ,82 , 165, 0.4)', 'rgba(0, 113, 188, 0.05)'],
+        10: ['rgba(102  ,102 , 102, 0.4)', 'rgba(26, 26, 26, 0.05)'],
+    };
+
+
+    // var planet = new fabric.Circle({
+    //   radius: planetSize,
+    //   //left: canvas.getWidth()/2,
+    //   //top: canvas.getHeight()/2,
+    //   fill: "white",
+    //   //stroke: 'rgba(0,192,255,0.5)',
+    //   index: index,
+    // });
+    // canvas.add(planet);
 
     if(orbitOn)
-        createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2);
+        createOrbit(index, xAxisLength, yAxisLength, yawAngle, orbit_colors[orbit_type][0], orbit_colors[orbit_type][1]);
 
     // animatePlanet(planet, index, xAxisLength, yAxisLength, planetSize);
 
@@ -162,6 +175,7 @@ function createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2) 
         });
     }
     canvas.add(orbit);
+    canvas.sendToBack(orbit);
 }
 
 function createPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize) {
