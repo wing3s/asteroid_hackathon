@@ -23,18 +23,20 @@ var hoverCircle = new fabric.Ellipse({
 
 //canvas.add(hoverCircle);
 
-//addAsteroid( 1, planetSize, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", 30);
-//addAsteroid( 2, 30, 4.37, 2.67122, 2.6396, "0401391", 16.50, "M", 45);
+addAsteroid( 1, 1, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", "blue", "white", 1, 30);
+addAsteroid( 2, 1, 4.37, 2.67122, 2.6396, "0401391", 16.50, "M", "red", "yellow", 1, 45);
+addAsteroid( 3, 1, 4.09, 2.55578, 2.539249, "K13C19F", 18.10, "M", "blue", "yellow", 1, 45);
+addAsteroid( 4, 1, 4.32, 2.65167, 2.62004, "K13C14Z", 16.50, "M", "blue", "red", 1, 45);
 
 //addAsteroidEarthView(1, .3, .1, "M", 16.3);
-addAsteroidEarthView(2, .5, .3, "P", 21.3, 1, "ChuChu");
-addAsteroidEarthView(3, .6, .4, "M", 12.3, 1.2, "Dede");
-addAsteroidEarthView(4, .7, .5, "P", 15.2, 1.5, "BanBan");
-addAsteroidEarthView(5, .9, .7, "S", 7.2, 2, "WH");
-addAsteroidEarthView(6, 1.0, .8, "B", 16.2, 2.4, "JJ");
-addAsteroidEarthView(7, 1.1, .9, "M", 11.2, 3.1, "Fon");
-addAsteroidEarthView(8, 1.2, 1.0, "B", 16.2, 3.7, "Hack");
-addAsteroidEarthView(9, 1.4, 1.2, "M", 11.2, 4.3, "Test");
+// addAsteroidEarthView(2, .5, .3, "P", 21.3, 1, "ChuChu");
+// addAsteroidEarthView(3, .6, .4, "M", 12.3, 1.2, "Dede");
+// addAsteroidEarthView(4, .7, .5, "P", 15.2, 1.5, "BanBan");
+// addAsteroidEarthView(5, .9, .7, "S", 7.2, 2, "WH");
+// addAsteroidEarthView(6, 1.0, .8, "B", 16.2, 2.4, "JJ");
+// addAsteroidEarthView(7, 1.1, .9, "M", 11.2, 3.1, "Fon");
+// addAsteroidEarthView(8, 1.2, 1.0, "B", 16.2, 3.7, "Hack");
+// addAsteroidEarthView(9, 1.4, 1.2, "M", 11.2, 4.3, "Test");
 
 
 
@@ -162,29 +164,86 @@ function animatePlanetEarthView(oImg, planetIndex, xAxisLength, yAxisLength, per
     })();
 }
 
-function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, planetType, yawAngle) {
+
+
+function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, planetType, color1, color2, orbitOn, yawAngle) {
 	
-	if(planetType == "M")
-		url = '../images/astroid-04.png';
-	else if(planetType == "P")
- 		url = '../images/astroid-05.png';
- 	else if(planetType == "S")
-		url = '../images/astroid-06.png';
-	else if(planetType == "B")
-		url = '../images/astroid-07.png';
-	else if(planetType == "F")
-		url = '../images/astroid-08.png';
-	else if(planetType == "G")
-		url = '../images/astroid-09.png';
-	else if(planetType == "C")
-		url = '../images/astroid-10.png';
-	else 
-		console.log("not valid planet type!");
+	// if(planetType == "M")
+	// 	url = '../images/astroid-04.png';
+	// else if(planetType == "P")
+ // 		url = '../images/astroid-05.png';
+ // 	else if(planetType == "S")
+	// 	url = '../images/astroid-06.png';
+	// else if(planetType == "B")
+	// 	url = '../images/astroid-07.png';
+	// else if(planetType == "F")
+	// 	url = '../images/astroid-08.png';
+	// else if(planetType == "G")
+	// 	url = '../images/astroid-09.png';
+	// else if(planetType == "C")
+	// 	url = '../images/astroid-10.png';
+	// else 
+	// 	console.log("not valid planet type!");
 
 	rotationSpeed = constRotationSpeed/period;
 	xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
 	yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
 	opacity = magnitude/maxMagnitude;
+
+    var planet = new fabric.Circle({
+      radius: planetSize,
+      //left: canvas.getWidth()/2 - xAxisLength,
+      //top: canvas.getHeight()/2 - yAxisLength,
+      fill: "white",
+      //stroke: 'rgba(0,192,255,0.5)',
+      index: index,
+    });
+    canvas.add(planet);
+
+    if(orbitOn)
+    	createOrbit(index, xAxisLength, yAxisLength,yawAngle, color1, color2);
+
+    animatePlanet(planet, index, xAxisLength, yAxisLength);
+
+	// // load sprite with planets
+	// fabric.Image.fromURL(url, function(planetsImg) {
+
+	//     // temp canvas to generate planet images
+	//     var tempCanvas = new fabric.StaticCanvas();
+
+	//     // only to fit one planet onto temp canvas
+	//     tempCanvas.setDimensions({
+	//       width: planetSize,
+	//       height: planetSize
+	//     });
+
+	//     // make sure image is drawn from left/top corner
+	//     planetsImg.originX = 'left';
+	//     planetsImg.originY = 'top';
+
+	//     // add it onto temp canvas
+	//     tempCanvas.add(planetsImg);
+
+	//     //for (var i = 0; i < totalPlanets; i++) {
+	//       createOrbit(index, xAxisLength, yAxisLength,yawAngle, color1, color2);
+	//     //}
+
+	//     //for (var i = 0; i < totalPlanets; i++) {
+	//       var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName);
+	//       //planets.push(planet);
+	//       animatePlanet(planet, index, xAxisLength, yAxisLength);
+	//     //}
+
+	//  });
+}
+
+function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, color1, color2, orbitOn, yawAngle) {
+	
+	rotationSpeed = constRotationSpeed/period;
+	xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
+	yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
+	opacity = magnitude/maxMagnitude;
+
 
 	// load sprite with planets
 	fabric.Image.fromURL(url, function(planetsImg) {
@@ -206,7 +265,7 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 	    tempCanvas.add(planetsImg);
 
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      createOrbit(index, xAxisLength, yAxisLength,yawAngle);
+	      createOrbit(index, xAxisLength, yAxisLength,yawAngle, color1, color2);
 	    //}
 
 	    //for (var i = 0; i < totalPlanets; i++) {
@@ -218,18 +277,49 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 	 });
 }
 
-function createOrbit(index, xAxisLength, yAxisLength, yawAngle) {
+
+function createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2) {
     var orbit = new fabric.Ellipse({
       rx: xAxisLength,
       ry: yAxisLength,
       left: canvas.getWidth()/2 - xAxisLength,
       top: canvas.getHeight()/2 - yAxisLength,
       fill: "",
-      stroke: 'rgba(0,192,255,0.5)',
-      strokeWidth: 2,
+      //stroke: 'rgba(0,192,255,0.5)',
+      strokeWidth: 1,
       index: index,
       //angle: yawAngle,
     });
+
+    gradientAngle = fabric.util.getRandomInt(0, 1);
+
+if(gradientAngle == 0)
+{
+  	orbit.setGradient('stroke', {
+  	x1: 0,
+  	y1: orbit.height / 2,
+  	x2: orbit.width,
+  	y2: orbit.height / 2,
+  	colorStops: {
+    	0: color1,
+    	1: color2
+   		}
+	});
+}
+else
+{
+  	orbit.setGradient('stroke', {
+  	x1: orbit.width / 2,
+  	y1: 0,
+  	x2: orbit.width / 2,
+  	y2: orbit.height,
+  	colorStops: {
+    	0: color1,
+    	1: color2
+   		}
+	});	
+}
+
     canvas.add(orbit);
     //orbits.push(orbit);
 }
