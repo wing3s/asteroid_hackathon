@@ -1,4 +1,4 @@
-var constRotationSpeed = 2000,
+var constSolarRotationSpeed = 20000,
     xAxisLength = 200,
     yAxisLength = 120,
     canvasWidth = canvas.getWidth(),
@@ -28,7 +28,7 @@ function addSolarPlanets() {
 
 function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, orbit_type, color1, color2, orbitOn, yawAngle) {
     
-    rotationSpeed = constRotationSpeed/period;
+    rotationSpeed = constSolarRotationSpeed/period;
     xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
     yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
     var opacity = magnitude/maxMagnitude;
@@ -99,7 +99,7 @@ function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetN
 
     url = '/images/planet/'+planetName+'.png';
 
-    rotationSpeed = constRotationSpeed/period;
+    rotationSpeed = constSolarRotationSpeed/period;
     xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
     yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
     opacity = magnitude/maxMagnitude;

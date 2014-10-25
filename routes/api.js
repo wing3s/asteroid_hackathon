@@ -67,7 +67,7 @@ module.exports = function(app) {
             'period',
         ];
         var sql = " SELECT " + output_params.join(', ') +
-                  " FROM mp_properties WHERE neo=1 AND name IS NOT NULL" +
+                  " FROM mp_properties WHERE neo=1 AND name IS NOT NULL AND km_neo=1" +
                   " ORDER BY perihelion_distance ASC";
         client.query(sql, function(err, results) {
             if (err) {
