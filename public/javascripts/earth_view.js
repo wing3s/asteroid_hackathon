@@ -1,5 +1,5 @@
 var planetSize = 26,
-    constRotationSpeed = 2000,
+    constRotationSpeed = 20000,
     //xAxisLength = 200,
     //yAxisLength = 120,
     canvasWidth = canvas.getWidth(),
@@ -8,11 +8,28 @@ var planetSize = 26,
     maxBRadius = 5,
     maxMagnitude = 33;
 
-function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magnitude, period, planetName, color1, color2) {
+function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magnitude, period, planetName) {
 
 	opacity = magnitude /maxMagnitude;
   var orbit_img_id = orbit_type * (Math.floor(Math.random() * 4) + 1);
   var url = '/images/satellite/asteroid/png/asteroid-'+orbit_img_id+'.png';
+
+    var orbit_colors = {
+        0: ['white', 'blue'],
+        1:  ['rgba(237  ,30 , 121, 0.2)', 'rgba(147, 39, 143, 0.05)'],
+        2:  ['rgba(237  ,28 , 36, 0.2)', 'rgba(247, 147, 30, 0.05)'],
+        3:  ['rgba(251  ,176 , 59, 0.2)', 'rgba(241, 90, 36, 0.05)'],
+        4:  ['rgba(251  ,176 , 59, 0.2)', 'rgba(34, 181, 115, 0.05)'],
+        5:  ['rgba(34  ,181 , 115, 0.2)', 'rgba(0, 113, 188, 0.05)'],
+        6:  ['rgba(0  ,169 , 157, 0.2)', 'rgba(0, 113, 188, 0.05)'],
+        7:  ['rgba(41  ,171 , 226, 0.2)', 'rgba(102, 45, 145, 0.05)'],
+        8:  ['rgba(169  ,82 , 165, 0.2)', 'rgba(102, 45, 145, 0.05)'],
+        9:  ['rgba(169  ,82 , 165, 0.2)', 'rgba(0, 113, 188, 0.05)'],
+        10: ['rgba(102  ,102 , 102, 0.2)', 'rgba(26, 26, 26, 0.05)'],
+    };
+
+
+
 
 	// load sprite with planets
 	fabric.Image.fromURL(url, function(planetsImg) {
@@ -36,7 +53,7 @@ function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magni
 		xAxisLength = xAxisLength * canvasWidth;
 		yAxisLength = yAxisLength * canvasHeight;
 
-    createOrbitEarthView(index, xAxisLength, yAxisLength, 0, color1, color2);
+    createOrbitEarthView(index, xAxisLength, yAxisLength, 0, orbit_colors[orbit_type][0], orbit_colors[orbit_type][1]);
    //for (var i = 0; i < totalPlanets; i++) {
     var planet = createEarthPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize, xAxisLength);
      //planets.push(planet);

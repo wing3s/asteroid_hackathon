@@ -10,7 +10,7 @@ var neo_timeout = false;
 $(document).ready(function() {
     // Solar System View
     $("#solarsystem_button").click(function() {
-
+        $('body').css('background-image', 'url("/images/backgroung.png")');
         clearTimeout(neo_timeout);
         clearCanvasObjs();
         addSolarPlanets();
@@ -45,6 +45,9 @@ $(document).ready(function() {
         clearTimeout(orbit_asteroids_timeout);
         clearTimeout(orbits_timeout);
         clearCanvasObjs();
+
+        $('body').css('background-image', 'url("/images/asteroid-20.png")');
+        $('body').css('background-repeat','no-repeat;');
         $.ajax({
             url: '/api/neo',
             dataType: "json",
