@@ -1,5 +1,3 @@
-var canvas = new fabric.Canvas('demo');
-
 var planetSize = 26,
 	constRotationSpeed = 20000,
     //xAxisLength = 200,
@@ -21,68 +19,51 @@ addAsteroidEarthView(8, 4.6, 4.2, "B", 16.2, 3.7, "Hack");
 addAsteroidEarthView(9, 5.0, 4.6, "M", 11.2, 4.3, "Test");
 
 
-function addAsteroidEarthView(index, xAxisLength, yAxisLength, planetType, magnitude, period, planetName) {
+function addAsteroidEarthView(index, xAxisLength, yAxisLength, orbit_type, magnitude, period, planetName) {
 
 	opacity = magnitude /maxMagnitude;
-
-	if(planetType == "M")
-		url = '../images/astroid-04.png';
-	else if(planetType == "P")
- 		url = '../images/astroid-05.png';
- 	else if(planetType == "S")
-		url = '../images/astroid-06.png';
-	else if(planetType == "B")
-		url = '../images/astroid-07.png';
-	else if(planetType == "F")
-		url = '../images/astroid-08.png';
-	else if(planetType == "G")
-		url = '../images/astroid-09.png';
-	else if(planetType == "C")
-		url = '../images/astroid-10.png';
-	else 
-		console.log("not valid planet type!");
-
+  var orbit_img_id = orbit_type * (Math.floor(Math.random() * 4) + 1);
+  var url = '/images/satellite/asteroid/png/asteroid-'+orbit_img_id+'.png';
 
 	// load sprite with planets
 	fabric.Image.fromURL(url, function(planetsImg) {
 
-	    // temp canvas to generate planet images
-	    var tempCanvas = new fabric.StaticCanvas();
+   // temp canvas to generate planet images
+   var tempCanvas = new fabric.StaticCanvas();
 
-	    // only to fit one planet onto temp canvas
-	    tempCanvas.setDimensions({
-	      width: planetSize,
-	      height: planetSize
-	    });
+   // only to fit one planet onto temp canvas
+   tempCanvas.setDimensions({
+     width: planetSize,
+     height: planetSize
+   });
 
-	    // make sure image is drawn from left/top corner
-	    planetsImg.originX = 'left';
-	    planetsImg.originY = 'top';
+   // make sure image is drawn from left/top corner
+   planetsImg.originX = 'left';
+   planetsImg.originY = 'top';
 
-	    // add it onto temp canvas
-	    tempCanvas.add(planetsImg);
+   // add it onto temp canvas
+   tempCanvas.add(planetsImg);
 
 		xAxisLength = xAxisLength * canvasWidth;
 		yAxisLength = yAxisLength * canvasHeight;
 
-		createOrbitEarthView(index, xAxisLength, yAxisLength, 0);	    
-	    
-	    //for (var i = 0; i < totalPlanets; i++) {
-	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize, xAxisLength);
-	      //planets.push(planet);
+    createOrbitEarthView(index, xAxisLength, yAxisLength, 0);
+   //for (var i = 0; i < totalPlanets; i++) {
+    var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize, xAxisLength);
+     //planets.push(planet);
 
 		var planetLabel = new fabric.Text('', {
-		    fill: '#fff',
-		    fontSize: 16,
-		    fontFamily: 'Open Sans',
-		    textBackgroundColor: '#002244',
-			name: planet.name});
+      fill: '#fff',
+      fontSize: 16,
+      fontFamily: 'Open Sans',
+      textBackgroundColor: '#002244',
+      name: planet.name
+    });
 
-		 canvas.add(planetLabel);
+    canvas.add(planetLabel);
 
-	     animatePlanetEarthView(planet, index, xAxisLength, yAxisLength, period, planetLabel);
-
-		 });
+    animatePlanetEarthView(planet, index, xAxisLength, yAxisLength, period, planetLabel);
+  });
 	
 }
 

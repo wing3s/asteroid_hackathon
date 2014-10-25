@@ -51,7 +51,11 @@ $(document).ready(function() {
             success: function(results) {
                 (function neo_loop(i) {
                     noe_timeout = setTimeout(function() {
-                        console.log(results[i]);
+                        neo_obj = results[i];
+                        console.log(neo_obj);
+                        var turb = Math.random()*0.6;
+                        addAsteroidEarthView(neo_obj.id, 1.7 + turb , 3.5 + turb, neo_obj.orbit_type, neo_obj.magnitude, neo_obj.period, neo_obj.name);
+
                         if (++i<results.length) {
                             neo_loop(i);
                         }

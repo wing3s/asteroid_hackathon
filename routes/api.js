@@ -58,7 +58,12 @@ module.exports = function(app) {
 
     app.get('/api/neo', function(req, res) {
         var output_params = [
+            'id',
             'name',
+            '(perihelion_distance + aphelion_distance)/2 radius_a',
+            'SQRT(perihelion_distance * aphelion_distance) radius_b',
+            'orbit_type',
+            'absolute_magnitude as magnitude',
             'period',
         ];
         var sql = " SELECT " + output_params.join(', ') +
