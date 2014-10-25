@@ -13,7 +13,7 @@ $(document).ready(function() {
 
         clearTimeout(neo_timeout);
         clearCanvasObjs();
-        // addPlanets(1, 60, 5, 0, 0, "Sun", 33, "white", "white", 1, 20);
+        addSolarPlanets();
         (function orbits_loop(i) {
             orbits_timeout = setTimeout(function() {
                 $.ajax({
@@ -23,7 +23,7 @@ $(document).ready(function() {
                         (function orbit_asteroids_loop(j) {
                             orbit_asteroids_timeout = setTimeout(function() {
                                 var asteroid = results[j];
-                                addAsteroid(asteroid.id, 10, asteroid.period, asteroid.radius_a, asteroid.radius_b, asteroid.name, asteroid.magnitude, asteroid.orbit_type, 'white', 'blue', 1, 0);
+                                addAsteroid(asteroid.id, 0, asteroid.period, asteroid.radius_a, asteroid.radius_b, asteroid.name, asteroid.magnitude, asteroid.orbit_type, 'white', 'blue', 1, 0);
 
                                 console.log(results[j]);
                                 if (++j<results.length) {

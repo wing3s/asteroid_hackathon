@@ -10,9 +10,20 @@ var constRotationSpeed = 20000,
     maxMagnitude = 33;
 
 
-addPlanets(1, 60, 2, 4, 4, "Sun", 33, "white", "white", 1, 20);
-addPlanets(2, 10, 2, 1, 1, "Mars", 20, "blue", "white", 1, 20);
 
+
+function addSolarPlanets() {
+    addPlanets(1, 85, 2, 4, 4, "Sun", 33, "white", "white", 1, 20);
+    addPlanets(2, 51, 2, 5.204, 4.950, "Jupiter", 20, "blue", "white", 1, 20);
+    addPlanets(2, 21, 2.135, 1.523679, 1.3814, "Mars", 20, "blue", "white", 1, 20);
+    addPlanets(2, 16, 0.240, 0.387, 0.307, "Mercury", 20, "blue", "white", 1, 20);
+    addPlanets(2, 43, 2, 1, 1, "Neptune", 20, "blue", "white", 1, 20);
+    addPlanets(2, 21, 2, 1, 1, "Pluto", 20, "blue", "white", 1, 20);
+    addPlanets(2, 69, 2, 1, 1, "Saturn", 20, "blue", "white", 1, 20);
+    addPlanets(2, 47, 2, 1, 1, "Uranus", 20, "blue", "white", 1, 20);
+    addPlanets(2, 24, 2, 1, 1, "Venus", 20, "blue", "white", 1, 20);
+    addPlanets(2, 26, 2, 1, 1, "Earth", 20, "blue", "white", 1, 20);
+}
 
 //addAsteroid( 1, 10, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", "blue", "white", 1, 0);
 
@@ -32,13 +43,12 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
       //stroke: 'rgba(0,192,255,0.5)',
       index: index,
     });
-    console.log(planet);
     canvas.add(planet);
 
     if(orbitOn)
         createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2);
 
-    animatePlanet(planet, index, xAxisLength, yAxisLength, planetSize);
+    // animatePlanet(planet, index, xAxisLength, yAxisLength, planetSize);
 
     // // load sprite with planets
     // fabric.Image.fromURL(url, function(planetsImg) {
@@ -74,26 +84,7 @@ function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planet
 
 function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, color1, color2, orbitOn, yawAngle) {
 
-    if(planetName == "Mercury")
-        url = '../images/planet/Mercury.png';
-    else if(planetName == "Venus")
-        url = '../images/Venus.png';
-    else if(planetName == "Earth")
-        url = '../images/Earth.png';
-    else if(planetName == "Mars")
-        url = '../images/planet/Mars.png';
-    else if(planetName == "Jupiter")
-        url = '../images/Jupiter.png';
-    else if(planetName == "Neptune")
-        url = '../images/Neptune.png';
-    else if(planetName == "Uranus")
-        url = '../images/Uranus.png';
-    else if(planetName == "Pluto")
-        url = '../images/Pluto.png';
-    else if(planetName == "Sun")
-        url = '../images/Sun.png';
-    else
-        console.log("not valid planet type!");
+    url = '/images/planet/'+planetName+'.png';
 
     rotationSpeed = constRotationSpeed/period;
     xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
@@ -111,7 +102,7 @@ function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetN
           width: planetSize,
           height: planetSize
         });
-
+        console.log(planetSize);
         // make sure image is drawn from left/top corner
         planetsImg.originX = 'left';
         planetsImg.originY = 'top';
@@ -125,7 +116,6 @@ function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetN
 
         //for (var i = 0; i < totalPlanets; i++) {
           var planet = createPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize);
-          //planets.push(planet);
           animatePlanet(planet, index, xAxisLength, yAxisLength, planetSize);
         //}
 
@@ -148,47 +138,40 @@ function createOrbit(index, xAxisLength, yAxisLength, yawAngle, color1, color2) 
 
     gradientAngle = fabric.util.getRandomInt(0, 1);
 
-if(gradientAngle == 0)
-{
-    orbit.setGradient('stroke', {
-    x1: 0,
-    y1: orbit.height / 2,
-    x2: orbit.width,
-    y2: orbit.height / 2,
-    colorStops: {
-        0: color1,
-        1: color2
-        }
-    });
-}
-else
-{
-    orbit.setGradient('stroke', {
-    x1: orbit.width / 2,
-    y1: 0,
-    x2: orbit.width / 2,
-    y2: orbit.height,
-    colorStops: {
-        0: color1,
-        1: color2
-        }
-    }); 
-}
-
-console.log(orbit);
+    if(gradientAngle === 0) {
+        orbit.setGradient('stroke', {
+        x1: 0,
+        y1: orbit.height / 2,
+        x2: orbit.width,
+        y2: orbit.height / 2,
+        colorStops: {
+            0: color1,
+            1: color2
+            }
+        });
+    } else {
+        orbit.setGradient('stroke', {
+        x1: orbit.width / 2,
+        y1: 0,
+        x2: orbit.width / 2,
+        y2: orbit.height,
+        colorStops: {
+            0: color1,
+            1: color2
+            }
+        });
+    }
     canvas.add(orbit);
-    //orbits.push(orbit);
 }
 
 function createPlanet(index, planetsImg, tempCanvas, opacity, planetName, planetSize) {
 
     // offset planets sprite to fit each of the planets onto it
-    planetsImg.left = -planetSize ;
     planetsImg.setCoords();
     tempCanvas.renderAll();
 
     // get data url for that planet
-    var img = new Image;
+    var img = new Image();
     img.src = tempCanvas.toDataURL();
 
     // create image of a planet from data url
