@@ -2,16 +2,16 @@ var canvas = new fabric.Canvas('demo');
 
 var planetSize = 26,
     totalPlanets = 10,
-    rotationSpeed = 20000,
+    constRotationSpeed = 20000,
     xAxisLength = 200,
     yAxisLength = 120,
     index = 5,
     planetName = "Saturn",
     canvasWidth = canvas.getWidth(),
     canvasHeight = canvas.getHeight(),
-    maxARadius = 4,
-    maxBRadius = 4,
-    maxMagnitude = 20;
+    maxARadius = 5,
+    maxBRadius = 5,
+    maxMagnitude = 33;
 
 var hoverCircle = new fabric.Ellipse({
 							strokeWidth: 2, 
@@ -22,10 +22,10 @@ var hoverCircle = new fabric.Ellipse({
                             left: 100, top:0});
 
 //canvas.add(hoverCircle);
-addAsteroid( 1, planetSize, rotationSpeed/5.33, 3.04971 * canvasWidth/maxARadius/2, 3.03044 * canvasHeight/maxBRadius/2, "K13C45M", 16.3/maxMagnitude, "M");
-addAsteroid( 2, 30, rotationSpeed/4.37, 2.67122 * canvasWidth/maxARadius/2, 2.6396 * canvasHeight/maxBRadius/2, "0401391", 16.50/maxMagnitude, "M");
+addAsteroid( 1, planetSize, 5.33, 3.04971, 3.03044, "K13C45M", 16.3, "M", 30);
+addAsteroid( 2, 30, 4.37, 2.67122, 2.6396, "0401391", 16.50, "M", 45);
 
-function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength, planetName, magnitude, planetType) {
+function addAsteroid(index, planetSize, period, xAxisLength, yAxisLength, planetName, magnitude, planetType, yawAngle) {
 	
 	if(planetType == "M")
 		url = '../images/astroid-04.png';
@@ -41,6 +41,11 @@ function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength,
 		url = '../images/astroid-09.png';
 	else if(planetType == "C")
 		url = '../images/astroid-10.png';
+
+	rotationSpeed = constRotationSpeed/period;
+	xAxisLength = xAxisLength* canvasWidth/maxARadius/2;
+	yAxisLength = yAxisLength* canvasHeight/maxBRadius/2;
+	opacity = magnitude/maxMagnitude;
 
 	// load sprite with planets
 	fabric.Image.fromURL(url, function(planetsImg) {
@@ -62,11 +67,11 @@ function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength,
 	    tempCanvas.add(planetsImg);
 
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      createOrbit(index, xAxisLength, yAxisLength);
+	      createOrbit(index, xAxisLength, yAxisLength,yawAngle);
 	    //}
 
 	    //for (var i = 0; i < totalPlanets; i++) {
-	      var planet = createPlanet(index, planetsImg, tempCanvas, magnitude);
+	      var planet = createPlanet(index, planetsImg, tempCanvas, opacity);
 	      //planets.push(planet);
 	      animatePlanet(planet, index, xAxisLength, yAxisLength);
 	    //}
@@ -74,7 +79,7 @@ function addAsteroid(index, planetSize, rotationSpeed, xAxisLength, yAxisLength,
 	 });
 }
 
-function createOrbit(index, xAxisLength, yAxisLength) {
+function createOrbit(index, xAxisLength, yAxisLength, yawAngle) {
     var orbit = new fabric.Ellipse({
       rx: xAxisLength,
       ry: yAxisLength,
@@ -83,13 +88,14 @@ function createOrbit(index, xAxisLength, yAxisLength) {
       fill: "",
       stroke: 'rgba(0,192,255,0.5)',
       strokeWidth: 2,
-      index: index
+      index: index,
+      //angle: yawAngle,
     });
     canvas.add(orbit);
     //orbits.push(orbit);
 }
 
-function createPlanet(index, planetsImg, tempCanvas, magnitude) {
+function createPlanet(index, planetsImg, tempCanvas, opacity) {
 
 	// offset planets sprite to fit each of the planets onto it
     planetsImg.left = -planetSize ;
@@ -105,7 +111,7 @@ function createPlanet(index, planetsImg, tempCanvas, magnitude) {
 
     	width: planetSize,
     	height: planetSize,
-    	opacity: magnitude,
+    	opacity: opacity,
 
     	name: planetName,
     	index: index,
