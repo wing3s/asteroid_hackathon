@@ -61,7 +61,7 @@ $(document).ready(function() {
                     neo_timeout = setTimeout(function() {
                         neo_obj = results[i];
                         var turb = Math.random()*0.6;
-                        addAsteroidEarthView(neo_obj.id, 1.7 + turb , 3.5 + turb, neo_obj.orbit_type, neo_obj.magnitude, neo_obj.period, neo_obj.name);
+                        addAsteroidEarthView(neo_obj.id, 1.2 + turb , 3.7 + turb, neo_obj.orbit_type, neo_obj.magnitude, neo_obj.period, neo_obj.name);
 
                         if (++i<results.length) {
                             neo_loop(i);

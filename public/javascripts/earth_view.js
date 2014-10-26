@@ -1,5 +1,5 @@
 var planetSize = 26,
-    constRotationSpeed = 20000,
+    constRotationSpeed = 50000,
     //xAxisLength = 200,
     //yAxisLength = 120,
     canvasWidth = canvas.getWidth(),
