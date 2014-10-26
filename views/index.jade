@@ -3,7 +3,7 @@ extends layout
 block content
   div(class='ui main top fixed inverted menu')
     div(class='menu_container')
-      div(class='title item' href='#') #{title.toUpperCase()}
+      a(class='title item' href='#' id='home_button') #{title.toUpperCase()}
       div(class='right menu')
         a(class='item' id='solarsystem_button') 
           i(class='sun icon')

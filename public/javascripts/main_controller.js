@@ -8,6 +8,11 @@ var orbits_timeout = false;
 var neo_timeout = false;
 
 $(document).ready(function() {
+    $("#home_button").click(function() {
+        location.reload();
+    });
+
+
     // Solar System View
     $("#solarsystem_button").click(function() {
         $('body').css('background-image', 'url("/images/backgroung.png")');
