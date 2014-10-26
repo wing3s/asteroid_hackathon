@@ -115,7 +115,6 @@ function addPlanets(index, planetSize, period, xAxisLength, yAxisLength, planetN
           width: planetSize,
           height: planetSize
         });
-        console.log(planetSize);
         // make sure image is drawn from left/top corner
         planetsImg.originX = 'left';
         planetsImg.originY = 'top';

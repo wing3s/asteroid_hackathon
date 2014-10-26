@@ -22,7 +22,7 @@ module.exports = function(app) {
                   " FROM mp_properties " +
                   " WHERE id > 0 " +
                     magnitude_query + orbit_type_query + needname_query +
-                  " LIMIT 100";
+                  " LIMIT 20";
         var query = client.query(sql, function(err, results) {
             if (err) {
                 console.error(err);
@@ -68,7 +68,8 @@ module.exports = function(app) {
         ];
         var sql = " SELECT " + output_params.join(', ') +
                   " FROM mp_properties WHERE neo=1 AND name IS NOT NULL AND km_neo=1" +
-                  " ORDER BY perihelion_distance ASC";
+                  " ORDER BY perihelion_distance ASC " +
+                  " LIMIT 200 ";
         client.query(sql, function(err, results) {
             if (err) {
                 console.log(err);
